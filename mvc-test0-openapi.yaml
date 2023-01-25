@@ -5,116 +5,109 @@ info:
   license:
     name: personal ip license
     url: https://ip.me
-  version: 1.5.12
+  version: 1.6.14
 servers:
-- url: http://localhost:8080
-  description: Generated server url
+  - url: http://localhost:8080
+    description: Generated server url
 tags:
-- name: api11
-  description: "the API for Api1: tag1"
-- name: api12
-  description: "the API for Api1: tag2"
+  - name: test1_tag
+    description: test1 tag description
+  - name: test0_tag1
+    description: test0 tag1 description
+  - name: test0_tag2
+    description: test0 tag2 description
+  - name: controller_tag1
+    description: description for controller_tag1
+  - name: controller_tag2
+    description: description for controller_tag2
 paths:
-  /test_api1/add:
+  /withOperation/exception:
     post:
       tags:
-      - controller-1
-      summary: "api1: add data"
-      description: Add new data
-      operationId: addData
-      requestBody:
-        description: Created data object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/api1_data'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/api1_data'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/api1_data'
-        required: true
-      responses:
-        "405":
-          description: Invalid input
-        "200":
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/api1_data'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api1_data'
-  /test_api1/m12/{param1}:
-    get:
-      tags:
-      - api12
-      summary: api1:get mapping2
-      description: m12 mapping with pathvar description
-      operationId: m12
+        - controllers-with-operation
+      summary: Trigger an exception
+      operationId: throwException
       parameters:
-      - name: param1
-        in: path
-        description: some path variable
-        required: true
-        schema:
-          type: string
+        - name: message
+          in: query
+          description: Exception message
+          required: false
+          schema:
+            type: string
+            default: test exception
       responses:
-        "200":
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-        "400":
-          description: Invalid status value
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-  /test_api1/all:
+        "403":
+          description: oops
+  /withTags/test2:
     get:
       tags:
-      - api11
-      summary: api1:get all datas
-      description: return all data
-      operationId: all
+        - controller_tag1
+        - controller_tag2
+      operationId: test2_method
       responses:
         "200":
-          description: successful operation
+          description: OK
           content:
-            application/xml:
+            '*/*':
               schema:
                 type: string
-            application/json:
-              schema:
-                type: string
-        "400":
-          description: Invalid status value
+  /withTags/test1:
+    get:
+      tags:
+        - controller_tag1
+        - controller_tag2
+        - test1_tag
+      operationId: test1_method
+      responses:
+        "200":
+          description: OK
           content:
-            application/xml:
+            '*/*':
               schema:
                 type: string
-            application/json:
+  /withTags/test0:
+    get:
+      tags:
+        - test0_tag1
+        - test0_tag2
+        - controller_tag1
+        - controller_tag2
+      operationId: test0_method
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
               schema:
                 type: string
-components:
-  schemas:
-    api1_data:
-      type: object
-      properties:
-        first_property:
-          type: string
-          description: api1_data prop1
-        second_property:
-          type: string
-          description: api1_data prop2
-      description: data object for api1
+  /withOperation/test2:
+    get:
+      tags:
+        - controllers-with-operation
+      operationId: test2
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /withOperation/test1:
+    get:
+      tags:
+        - foo
+      summary: test1_operation
+      description: test1_operation_description
+      operationId: test1_id
+      parameters:
+        - name: dummy
+          in: query
+          description: dummy parameter
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components: { }

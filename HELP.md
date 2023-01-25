@@ -5,5 +5,7 @@
 - @Parameter annotation is ignored on openapi generating for endpoints  - https://youtrack.jetbrains.com/issue/IDEA-283265
 - @RequestBody annotation is ignored on openapi generating for endpoints  - https://youtrack.jetbrains.com/issue/IDEA-283267
 - @Content annotation
+- @Schema
+- @Hidden
 - @ApiOperation  annotations not displayed - https://youtrack.jetbrains.com/issue/IDEA-233294
 - @ApiResponses annotations not displayed - https://youtrack.jetbrains.com/issue/IDEA-233294
