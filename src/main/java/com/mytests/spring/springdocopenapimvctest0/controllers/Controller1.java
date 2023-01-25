@@ -1,7 +1,6 @@
 package com.mytests.spring.springdocopenapimvctest0.controllers;
 
 import com.mytests.spring.springdocopenapimvctest0.model.Api1Data;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  * <p>Project: springdoc-openapi-mvc-test0</p>
  * *
  */
-@RestController
+//@RestController
 public class Controller1 implements Api1 {
 
     List<Api1Data> datas = new ArrayList<>();
@@ -24,21 +23,21 @@ public class Controller1 implements Api1 {
 
     @Override
     public String m12(String param1) {
-        datas.add(new Api1Data("created by m12",param1));
-        return "m12 "+param1;
+        datas.add(new Api1Data("created by m12", param1));
+        return "m12 " + param1;
     }
 
     @Override
     public String all() {
         String rez = "api1 data:";
         for (Api1Data data : datas) {
-            rez = rez+data.toString()+"\n";
+            rez = rez + data.toString() + "\n";
         }
         return rez;
     }
 
     @Override
     public void addData(Api1Data data) {
-      datas.add(data);
+        datas.add(data);
     }
 }
